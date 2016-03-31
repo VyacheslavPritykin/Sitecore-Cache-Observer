@@ -1,0 +1,77 @@
+body {
+  font: 14px "Open Sans";
+  color: #212121;
+  padding: 0 15px;
+}
+
+input {
+  font-family: inherit;
+}
+
+.delimeter {
+  color: #BFBFBF;
+  margin: 0 5px;
+}
+
+.cachesTable {
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+  .cachesTable > tbody > tr:nth-child(2n + 3) > td {
+    border-top: 1px solid #EEEEEE;
+  }
+
+.infoColumTitle {
+  cursor: pointer;
+}
+
+.sorted.asc:after {
+}
+
+.sorted.desc:after {
+}
+
+.sortContainer {
+  display: inline-block;
+  width: 10px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+  .sortContainer .sort {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50%;
+    cursor: pointer;
+    font-size: 9px;
+    line-height: 5px;
+    transform: scaleY(0.65);
+  }
+
+.collaspibleIconCell {
+  width: 30px;
+  min-width: 30px;
+}
+
+.collapsibleIcon {
+  padding-right: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+  .collapsibleIcon.collapsibleIconExpanded {
+    font-size: 15px;
+  }
+
+.chart {
+  margin-bottom: 10px;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
