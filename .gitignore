@@ -234,3 +234,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+Sitecore.CacheObserver/sitecore/admin/Cache/*.js
+Sitecore.CacheObserver/sitecore/admin/Cache/*.js.map
