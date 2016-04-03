@@ -34,6 +34,19 @@ namespace Sitecore.Admin.Cache
       CacheManager.ClearAllCaches();
     }
 
+    public void ClearCaches(List<ID> cacheIds)
+    {
+      foreach (var cache in CacheManager.GetAllCaches().Where(cache => cacheIds.Contains(cache.Id)))
+      {
+        cache.Clear();
+      }
+    }
+
+    public void ClearCache(ID cacheID)
+    {
+      CacheManager.GetAllCaches().FirstOrDefault(cache => cache.Id == cacheID)?.Clear();
+    }
+
     public override Task OnDisconnected(bool stopCalled)
     {
       this.Broadcaster.StopCacheUpdate(this.Context.ConnectionId);

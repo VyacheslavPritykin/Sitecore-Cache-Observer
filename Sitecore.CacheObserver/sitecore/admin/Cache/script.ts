@@ -228,6 +228,19 @@
             this.server.clearAllCaches();
         }
 
+        clearFilteredCaches() {
+            const filter = this.filter();
+            const filteredCacheIds = this.caches()
+                .filter(cache => cache.isPassedNameFilter(filter))
+                .map(cache => cache.id);
+
+            this.server.clearCaches(filteredCacheIds);
+        }
+
+        clearCache = (cache: CacheViewModel) => {
+            this.server.clearCache(cache.id);
+        }
+
         sortAsc = (infoColumn: InfoColumn) => {
             this.sort(infoColumn, true);
         }

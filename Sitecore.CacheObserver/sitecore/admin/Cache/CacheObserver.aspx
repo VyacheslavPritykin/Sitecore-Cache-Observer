@@ -37,6 +37,7 @@
                     </div>
                 </th>
                 <!-- /ko -->
+                <th></th>
             </tr>
             <tr>
                 <td colspan="2">
@@ -46,6 +47,7 @@
                 <td><span data-bind="text: totalSize"></span></td>
                 <td><span data-bind="text: totalMaxSize"></span></td>
                 <td></td>
+                <td><a href="#" data-bind="click: clearFilteredCaches">Clear</a></td>
             </tr>
         </thead>
         <tbody>
@@ -60,6 +62,7 @@
                 <td><span data-bind="text: sizeString"></span></td>
                 <td><span data-bind="text: maxSizeString"></span></td>
                 <td><span data-bind="text: load() + '%'"></span></td>
+                <td><a href="#" data-bind="click: $parent.clearCache">Clear</a></td>
             </tr>
             <tr data-bind="if: isChartVisible, visible: isPassedNameFilter($parent.filter())">
                 <td></td>
