@@ -4,8 +4,11 @@ using System.Linq;
 
 namespace Sitecore.Admin.Cache
 {
+  using System.Diagnostics;
   using System.Threading;
   using Microsoft.AspNet.SignalR;
+
+  using Sitecore.CacheObserver.Configuration;
   using Sitecore.Caching;
 
   public class CacheObserverBroadcaster
@@ -15,7 +18,7 @@ namespace Sitecore.Admin.Cache
     private static readonly Lazy<CacheObserverBroadcaster> instance =
       new Lazy<CacheObserverBroadcaster>(() => new CacheObserverBroadcaster(GlobalHost.ConnectionManager.GetHubContext<CacheObserverHub, ICacheObserverClient>()));
 
-    private TimeSpan updateInterval = TimeSpan.FromMilliseconds(500);
+    private TimeSpan updateInterval = TimeSpan.FromMilliseconds(1000);
 
     private Timer timer;
     private readonly object updateCachesLock = new object();
@@ -41,7 +44,7 @@ namespace Sitecore.Admin.Cache
           this.connectionIds.Add(connectionId);
           if (this.connectionIds.Count == 1)
           {
-            this.timer = new Timer(this.UpdateCaches, null, this.updateInterval, this.updateInterval);
+            this.timer = new Timer(this.UpdateCaches, null, TimeSpan.Zero, this.updateInterval);
           }
         }
       }
@@ -54,6 +57,7 @@ namespace Sitecore.Admin.Cache
         if (this.connectionIds.Remove(connectionId) && this.connectionIds.Count == 0)
         {
           this.timer.Dispose();
+          this.timer = null;
         }
       }
     }
@@ -90,6 +94,26 @@ namespace Sitecore.Admin.Cache
     private void BroadCastCaches(IEnumerable<CacheViewModel> cacheViewModels)
     {
       this.hubContext.Clients.All.UpdateAllCaches(cacheViewModels);
+    }
+
+    public void SetUpdateInterval(int newUpdateInterval, string connectionId)
+    {
+      if (newUpdateInterval >= Settings.CacheObserver.MinUpdateInterval
+          && newUpdateInterval <= Settings.CacheObserver.MaxUpdateInterval)
+      {
+        this.updateInterval = TimeSpan.FromMilliseconds(newUpdateInterval);
+        lock (this.connectionIds)
+        {
+          this.timer?.Change(TimeSpan.Zero, this.updateInterval);
+        }
+
+        this.hubContext.Clients.AllExcept(connectionId).SetUpdateInterval((int)this.updateInterval.TotalMilliseconds);
+      }
+    }
+
+    public void GetUpdateInterval(string connectionId)
+    {
+      this.hubContext.Clients.Client(connectionId).SetUpdateInterval((int)this.updateInterval.TotalMilliseconds);
     }
   }
 }

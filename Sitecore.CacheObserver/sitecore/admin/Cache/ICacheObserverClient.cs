@@ -5,5 +5,7 @@ namespace Sitecore.Admin.Cache
   public interface ICacheObserverClient
   {
     void UpdateAllCaches(IEnumerable<CacheViewModel> caches);
+
+    void SetUpdateInterval(int updateInterval);
   }
 }

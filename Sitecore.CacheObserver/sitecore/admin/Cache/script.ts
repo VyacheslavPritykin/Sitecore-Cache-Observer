@@ -85,7 +85,7 @@
             this.chartTimeSeries = new TimeSeries();
 
             this.chart.addTimeSeries(this.chartTimeSeries,
-            { strokeStyle: '#117bbb', fillStyle: 'rgba(209,221,239,0.30)' });
+                { strokeStyle: '#117bbb', fillStyle: 'rgba(209,221,239,0.30)' });
         }
 
         updateСhartTimeSeries() {
@@ -133,7 +133,7 @@
         constructor(public title: string,
             sorted: boolean,
             asc: boolean,
-            public sortField: (cache: CacheViewModel) => string|number) {
+            public sortField: (cache: CacheViewModel) => string | number) {
             this.sorted = ko.observable(sorted);
             this.asc = ko.observable(asc);
         }
@@ -143,7 +143,18 @@
     }
 
     class CacheObserverViewModel {
-        constructor(private server: any) {}
+        constructor(private server: any) {
+            this.updateInterval.subscribe((newValue) => {
+                if (!this.updateIntervalIsUpdatedByServer) {
+                    this.server.setUpdateInterval(newValue);
+                }
+
+                this.updateIntervalIsUpdatedByServer = false;
+                return true;
+            });
+        }
+
+        updateInterval = ko.observable<number>();
 
         caches = ko.observableArray([] as CacheViewModel[]);
 
@@ -160,7 +171,7 @@
 
         totalCount = ko.pureComputed(() => {
             let result = 0;
-            for (let cache of this.caches().filter((x)=>x.isPassedNameFilter(this.filter()))) {
+            for (let cache of this.caches().filter((x) => x.isPassedNameFilter(this.filter()))) {
                 result += cache.count();
             }
 
@@ -273,6 +284,13 @@
                     : leftField === rightField ? 0 : (leftField > rightField ? -1 : 1);
             });
         }
+
+        private updateIntervalIsUpdatedByServer = false;
+
+        setUpdateInterval = (newUpdateInterval: number) => {
+            this.updateIntervalIsUpdatedByServer = true;
+            this.updateInterval(newUpdateInterval);
+        }
     }
 
     $(() => {
@@ -287,14 +305,18 @@
 
         let cacheObserverHub = ($.connection as any).cacheObserverHub;
         ko.options.deferUpdates = true;
+
         var cacheObserverViewModel = new CacheObserverViewModel(cacheObserverHub.server);
+
         cacheObserverHub.client.updateAllCaches = cacheObserverViewModel.updateAllCaches;
+        cacheObserverHub.client.setUpdateInterval = cacheObserverViewModel.setUpdateInterval;
 
         ko.applyBindings(cacheObserverViewModel);
 
         $.connection.hub
             .start()
             .done(() => {
+                cacheObserverHub.server.getUpdateInterval();
                 cacheObserverViewModel.startCacheUpdate();
             });
     });

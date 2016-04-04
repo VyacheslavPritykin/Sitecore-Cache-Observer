@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CacheObserver.aspx.cs" Inherits="Sitecore.Admin.Cache.CacheObserver" %>
+<%@ Import Namespace="Sitecore.CacheObserver.Configuration" %>
 
 <!DOCTYPE html>
 
@@ -21,6 +22,14 @@
     <input type="search" placeholder="Filter" data-bind="textInput: filter" />
     <span class="delimeter">|</span>
     <input type="button" value="Clear all" data-bind="click: clearAllCaches" />
+    <span class="delimeter">|</span>
+    <span>Update interval: </span>
+    <span data-bind="text: updateInterval"></span>
+    <span>ms</span>
+    <input class="updateIntervalRange" type="range" data-bind="value: updateInterval"
+        min="<%: Settings.CacheObserver.MinUpdateInterval %>"
+        max="<%: Settings.CacheObserver.MaxUpdateInterval %>"
+        step="<%: Settings.CacheObserver.ChangeUpdateIntervalStep %>"/>
     <span class="delimeter">|</span>
     <input type="button" value="Start live update" data-bind="click: startCacheUpdate, visible: !isUpdating()" />
     <input type="button" value="Stop live update" data-bind="click: stopCacheUpdate, visible: isUpdating" />

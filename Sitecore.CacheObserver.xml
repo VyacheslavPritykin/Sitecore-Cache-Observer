@@ -22,6 +22,7 @@
         <x-item>/Scripts/jquery.signalR-2.2.0.min.js</x-item>
         <x-item>/Scripts/knockout-3.4.0.js</x-item>
         <x-item>/Scripts/smoothie.js</x-item>
+        <x-item>/App_Config/Include/Sitecore.CacheObserver.config</x-item>
         <x-item>/sitecore/admin/Cache/CacheObserver.aspx</x-item>
         <x-item>/sitecore/admin/Cache/script.js</x-item>
         <x-item>/sitecore/admin/Cache/style.css</x-item>

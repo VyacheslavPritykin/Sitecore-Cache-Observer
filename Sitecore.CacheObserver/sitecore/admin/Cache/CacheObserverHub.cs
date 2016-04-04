@@ -2,8 +2,12 @@
 
 namespace Sitecore.Admin.Cache
 {
+  using System.Collections.Generic;
+  using System.Linq;
   using System.Threading.Tasks;
+
   using Sitecore.Caching;
+  using Sitecore.Data;
 
   [SitecoreDeveloperAuthorize]
   public class CacheObserverHub : Hub<ICacheObserverClient>
@@ -45,6 +49,16 @@ namespace Sitecore.Admin.Cache
     public void ClearCache(ID cacheID)
     {
       CacheManager.GetAllCaches().FirstOrDefault(cache => cache.Id == cacheID)?.Clear();
+    }
+
+    public void SetUpdateInterval(int updateInterval)
+    {
+      this.Broadcaster.SetUpdateInterval(updateInterval, this.Context.ConnectionId);
+    }
+
+    public void GetUpdateInterval()
+    {
+      this.Broadcaster.GetUpdateInterval(this.Context.ConnectionId);
     }
 
     public override Task OnDisconnected(bool stopCalled)
