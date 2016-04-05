@@ -13,6 +13,12 @@ input {
   margin: 0 5px;
 }
 
+.updateIntervalValue {
+  display: inline-block;
+  min-width: 32px;
+  text-align: right;
+}
+
 .updateIntervalRange {
   vertical-align: middle;
 }

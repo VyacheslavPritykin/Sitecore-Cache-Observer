@@ -24,7 +24,7 @@
     <input type="button" value="Clear all" data-bind="click: clearAllCaches" />
     <span class="delimeter">|</span>
     <span>Update interval: </span>
-    <span data-bind="text: updateInterval"></span>
+    <span class="updateIntervalValue" data-bind="text: updateInterval"></span>
     <span>ms</span>
     <input class="updateIntervalRange" type="range" data-bind="value: updateInterval"
         min="<%: Settings.CacheObserver.MinUpdateInterval %>"
@@ -63,7 +63,7 @@
             <!-- ko foreach: caches -->
             <tr data-bind="visible: isPassedNameFilter($parent.filter())">
                 <td class="collaspibleIconCell unselectable">
-                    <div class="collapsibleIcon collapsibleIconCollapsed" data-bind="visible: !isChartVisible(), click: showChart">&#9658;</div>
+                    <div class="collapsibleIcon collapsibleIconCollapsed" data-bind="visible: !isChartVisible(), click: showChart.bind($data, $parent.updateInterval())">&#9658;</div>
                     <div class="collapsibleIcon collapsibleIconExpanded" data-bind="visible: isChartVisible, click: closeChart">&#9698;</div>
                 </td>
                 <td><span data-bind="text: name"></span></td>

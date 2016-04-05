@@ -178,11 +178,11 @@ interface SmoothieChart {
     render(canvas?: HTMLCanvasElement, time?: number): void;
 
     timeFormatter(date: Date): string;
-}
 
-/*declare module "asd"  {
-    export = SmoothieChart;
-}*/
+    delay?: number;
+
+    options: IChartOptions;
+}
 
 declare var TimeSeries: TimeSeries;
 declare var SmoothieChart: SmoothieChart;

@@ -48,14 +48,14 @@
         chartTimeSeries: TimeSeries;
         isChartVisible = ko.observable(false);
 
-        showChart() {
+        showChart(updateInterval: number) {
             this.isChartVisible(true);
 
-            this.initChart();
+            this.initChart(updateInterval);
             setTimeout(
                 () => {
                     let canvas = document.getElementById(this.chartId) as HTMLCanvasElement;
-                    this.chart.streamTo(canvas, 500);
+                    this.chart.streamTo(canvas, updateInterval);
                 },
                 0);
         }
@@ -68,20 +68,28 @@
             this.chartTimeSeries = null;
         }
 
-        initChart() {
-            let foo = (date: Date) => {
-
-                let seconds = date.getSeconds();
-                return seconds % 5 === 0 ? seconds.toString() : '';
-            };
+        initChart(updateInterval: number) {
             this.chart = new SmoothieChart({
-                grid: { fillStyle: '#ffffff', strokeStyle: '#d9eaf4', sharpLines: true },
-                labels: { fillStyle: '#4d4d4d', fontSize: 12 },
-                millisPerPixel: 85,
-                timestampFormatter: foo,
+                grid: {
+                    fillStyle: '#ffffff',
+                    strokeStyle: '#d9eaf4',
+                    sharpLines: true,
+                    verticalSections: 4
+                },
+                labels: {
+                    fillStyle: '#4d4d4d',
+                    fontSize: 12
+                },
+                timestampFormatter: (date: Date) => {
+                    const seconds = date.getSeconds();
+                    return seconds.toString();
+                },
                 maxValue: 100,
                 minValue: 0
             });
+
+            Utils.updateChartSpeedOption(this.chart, updateInterval);
+
             this.chartTimeSeries = new TimeSeries();
 
             this.chart.addTimeSeries(this.chartTimeSeries,
@@ -127,6 +135,11 @@
 
             return Math.round(size * 100) / 100 + unit;
         }
+
+        static updateChartSpeedOption(chart: SmoothieChart, updateInterval: number) {
+            chart.options.grid.millisPerLine = 2000 * updateInterval / 300;
+            chart.options.millisPerPixel = 85 * updateInterval / 500;
+        }
     }
 
     class InfoColumn {
@@ -149,6 +162,15 @@
                     this.server.setUpdateInterval(newValue);
                 }
 
+                this.caches()
+                    .forEach(cache => {
+                        const chart = cache.chart;
+
+                        if (chart) {
+                            chart.delay = newValue;
+                            Utils.updateChartSpeedOption(chart, newValue);
+                        }
+                    });
                 this.updateIntervalIsUpdatedByServer = false;
                 return true;
             });
@@ -225,13 +247,11 @@
 
         startCacheUpdate() {
             this.isUpdating(true);
-            // this.caches().forEach(cache => cache.chart && cache.chart.start());
             this.server.startCacheUpdate();
         }
 
         stopCacheUpdate() {
             this.isUpdating(false);
-            // this.caches().forEach(cache => cache.chart && cache.chart.stop());
             this.server.stopCacheUpdate();
         }
 
