@@ -28,8 +28,12 @@ input {
   margin-top: 15px;
 }
 
-  .cachesTable > tbody > tr:nth-child(2n + 3) > td {
+  .cachesTable tbody tr:nth-child(2n + 3) td {
     border-top: 1px solid #EEEEEE;
+  }
+
+  .cachesTable td, .cachesTable th {
+    padding: 1px 5px;
   }
 
 .infoColumTitle {
@@ -60,12 +64,11 @@ input {
   }
 
 .collaspibleIconCell {
-  width: 30px;
-  min-width: 30px;
+  width: 12px;
+  min-width: 12px;
 }
 
 .collapsibleIcon {
-  padding-right: 5px;
   text-align: center;
   cursor: pointer;
   font-size: 10px;
@@ -84,4 +87,12 @@ input {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
 }

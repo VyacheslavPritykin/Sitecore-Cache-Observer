@@ -146,7 +146,8 @@
         constructor(public title: string,
             sorted: boolean,
             asc: boolean,
-            public sortField: (cache: CacheViewModel) => string | number) {
+            public sortField: (cache: CacheViewModel) => string | number,
+            public cssAlign: "textLeft" | "textRight" = "textLeft") {
             this.sorted = ko.observable(sorted);
             this.asc = ko.observable(asc);
         }
@@ -181,11 +182,11 @@
         caches = ko.observableArray([] as CacheViewModel[]);
 
         infoColumns = [
-            new InfoColumn("Cache name", true, true, cache => cache.name.toUpperCase()),
-            new InfoColumn("Count", false, true, cache => cache.count()),
-            new InfoColumn("Size", false, true, cache => cache.size()),
-            new InfoColumn("MaxSize", false, true, cache => cache.maxSize()),
-            new InfoColumn("Load", false, true, cache => cache.load())
+            new InfoColumn("Cache name", false, true, cache => cache.name.toUpperCase()),
+            new InfoColumn("Count", false, true, cache => cache.count(), "textRight"),
+            new InfoColumn("Size", false, true, cache => cache.size(), "textRight"),
+            new InfoColumn("MaxSize", false, true, cache => cache.maxSize(), "textRight"),
+            new InfoColumn("Load", false, true, cache => cache.load(), "textRight")
         ];
 
         isUpdating = ko.observable(false);

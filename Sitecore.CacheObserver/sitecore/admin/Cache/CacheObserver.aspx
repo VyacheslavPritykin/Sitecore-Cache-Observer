@@ -38,7 +38,7 @@
             <tr>
                 <th></th>
                 <!-- ko foreach: infoColumns -->
-                <th>
+                <th data-bind="css: cssAlign">
                     <span class="infoColumTitle unselectable" data-bind="text: title, css: { sorted: sorted, asc: asc, desc: !asc() }, click: $parent.sort"></span>
                     <div class="sortContainer">
                         <div class="sort sortUp" data-bind="click: $parent.sortDesc">&#9650;</div>
@@ -49,12 +49,13 @@
                 <th></th>
             </tr>
             <tr>
-                <td colspan="2">
+                <td></td>
+                <td>
                     <h4>Total</h4>
                 </td>
-                <td><span data-bind="text: totalCount"></span></td>
-                <td><span data-bind="text: totalSize"></span></td>
-                <td><span data-bind="text: totalMaxSize"></span></td>
+                <td class="textRight"><span data-bind="text: totalCount"></span></td>
+                <td class="textRight"><span data-bind="text: totalSize"></span></td>
+                <td class="textRight"><span data-bind="text: totalMaxSize"></span></td>
                 <td></td>
                 <td><a href="#" data-bind="click: clearFilteredCaches">Clear</a></td>
             </tr>
@@ -67,10 +68,10 @@
                     <div class="collapsibleIcon collapsibleIconExpanded" data-bind="visible: isChartVisible, click: closeChart">&#9698;</div>
                 </td>
                 <td><span data-bind="text: name"></span></td>
-                <td><span data-bind="text: count"></span></td>
-                <td><span data-bind="text: sizeString"></span></td>
-                <td><span data-bind="text: maxSizeString"></span></td>
-                <td><span data-bind="text: load() + '%'"></span></td>
+                <td class="textRight"><span data-bind="text: count"></span></td>
+                <td class="textRight"><span data-bind="text: sizeString"></span></td>
+                <td class="textRight"><span data-bind="text: maxSizeString"></span></td>
+                <td class="textRight"><span data-bind="text: load() + '%'"></span></td>
                 <td><a href="#" data-bind="click: $parent.clearCache">Clear</a></td>
             </tr>
             <tr data-bind="if: isChartVisible, visible: isPassedNameFilter($parent.filter())">
