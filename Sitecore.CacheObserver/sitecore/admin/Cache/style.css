@@ -40,10 +40,23 @@ input {
   cursor: pointer;
 }
 
+.sorted:after {
+  font-size: 9px;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+}
+
 .sorted.asc:after {
+  content: "\25BC";
 }
 
 .sorted.desc:after {
+  content: "\25b2";
+}
+
+.sorted + .sortContainer {
+  display: none;
 }
 
 .sortContainer {

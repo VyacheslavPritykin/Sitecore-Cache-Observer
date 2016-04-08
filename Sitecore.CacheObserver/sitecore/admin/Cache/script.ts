@@ -1,7 +1,8 @@
-﻿// ReSharper disable InconsistentNaming
+﻿
 (() => {
     "use strict";
 
+    // ReSharper disable InconsistentNaming
     interface IServerCache {
         Id: string;
         Name: string;
@@ -9,6 +10,7 @@
         Size: number;
         MaxSize: number;
     }
+    // ReSharper restore InconsistentNaming
 
     class CacheViewModel {
         constructor(public id: string,
@@ -150,6 +152,13 @@
             public cssAlign: "textLeft" | "textRight" = "textLeft") {
             this.sorted = ko.observable(sorted);
             this.asc = ko.observable(asc);
+            this.initialSortDirection = asc;
+        }
+
+        private initialSortDirection: boolean;
+
+        resetSortDirection() {
+            this.asc(this.initialSortDirection);
         }
 
         sorted: KnockoutObservable<boolean>;
@@ -182,7 +191,7 @@
         caches = ko.observableArray([] as CacheViewModel[]);
 
         infoColumns = [
-            new InfoColumn("Cache name", false, true, cache => cache.name.toUpperCase()),
+            new InfoColumn("Cache name", false, false, cache => cache.name.toUpperCase()),
             new InfoColumn("Count", false, true, cache => cache.count(), "textRight"),
             new InfoColumn("Size", false, true, cache => cache.size(), "textRight"),
             new InfoColumn("MaxSize", false, true, cache => cache.maxSize(), "textRight"),
@@ -240,10 +249,8 @@
                 }
             }
 
-            // Uncomment for live sorting. Be aware that Chrome does not use stable sort algorithm for array.sort
-            // if (false) {
-            //     this.sort(ko.utils.arrayFirst(this.infoColumns, infoColumn => infoColumn.sorted()));
-            // }
+            let infoColumnToSort = ko.utils.arrayFirst(this.infoColumns, infoColumn => infoColumn.sorted());
+            infoColumnToSort && this.sort(infoColumnToSort, infoColumnToSort.asc());
         }
 
         startCacheUpdate() {
@@ -283,27 +290,47 @@
 
         sort = (infoColumn: InfoColumn, arg?: JQueryMouseEventObject | boolean) => {
             if (!infoColumn.sorted()) {
-                this.infoColumns.forEach(x => x.sorted(false));
+                this.infoColumns.forEach(x => {
+                    x.sorted(false);
+                    x.resetSortDirection();
+                });
                 infoColumn.sorted(true);
             }
 
             let asc: boolean;
 
-            if (typeof arg == "boolean") {
-                asc = arg as boolean;
+            if (typeof arg === "boolean") {
+                asc = arg;
             } else {
                 asc = !infoColumn.asc();
             }
 
             infoColumn.asc(asc);
 
-            this.caches.sort((left, right) => {
-                const leftField = infoColumn.sortField(left);
-                const rightField = infoColumn.sortField(right);
-                return asc
-                    ? leftField === rightField ? 0 : (leftField < rightField ? -1 : 1)
-                    : leftField === rightField ? 0 : (leftField > rightField ? -1 : 1);
-            });
+            // Two sort types since Chrome browser does not implement a stable sort algorithm for Array.sort
+            if (typeof infoColumn.sortField(this.caches()[0]) === "number") {
+                this.caches.sort((left, right) => {
+                    let leftField: any = infoColumn.sortField(left),
+                        rightField: any = infoColumn.sortField(right),
+                        result = leftField - rightField;
+
+                    if (result === 0) {
+                        leftField = left.name;
+                        rightField = right.name;
+                        result = leftField < rightField ? 1 : -1;
+                    }
+
+                    return asc ? result : -result;
+                });
+            } else {
+                this.caches.sort((left, right) => {
+                    let leftField = infoColumn.sortField(left),
+                        rightField = infoColumn.sortField(right),
+                        result = leftField === rightField ? 0 : (leftField < rightField ? -1 : 1);
+
+                    return asc ? result : -result;
+                });
+            }           
         }
 
         private updateIntervalIsUpdatedByServer = false;

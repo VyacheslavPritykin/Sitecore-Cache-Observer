@@ -38,11 +38,11 @@
             <tr>
                 <th></th>
                 <!-- ko foreach: infoColumns -->
-                <th data-bind="css: cssAlign">
-                    <span class="infoColumTitle unselectable" data-bind="text: title, css: { sorted: sorted, asc: asc, desc: !asc() }, click: $parent.sort"></span>
+                <th class="infoColumTitle" data-bind="css: cssAlign, click: $parent.sort">
+                    <span class="unselectable" data-bind="text: title, css: { sorted: sorted, asc: sorted() && asc(), desc: sorted() && !asc() }"></span>
                     <div class="sortContainer">
-                        <div class="sort sortUp" data-bind="click: $parent.sortDesc">&#9650;</div>
-                        <div class="sort sortDown" data-bind="click: $parent.sortAsc">&#9660;</div>
+                        <div class="sort sortUp">&#9650;</div>
+                        <div class="sort sortDown">&#9660;</div>
                     </div>
                 </th>
                 <!-- /ko -->

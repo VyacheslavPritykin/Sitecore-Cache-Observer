@@ -84,7 +84,7 @@ namespace Sitecore.Admin.Cache
             MaxSize = cache.MaxSize
           });
 
-          this.BroadCastCaches(cacheViewModels.OrderBy(model => model.Name));
+          this.BroadCastCaches(cacheViewModels);
 
           this.updatingCaches = false;
         }
