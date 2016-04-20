@@ -35,7 +35,7 @@ Before install, add the following assembly binding into the _Web.config_ `runtim
  </dependentAssembly>
 ```
 
-Follow the link [Sitecore Cache Observer _(link will be updated later)_](https://marketplace.sitecore.net/) to download the package from Sitecore Marketplace and install it via Sitecore Installation Wizard.
+Follow the link [Sitecore Cache Observer](https://marketplace.sitecore.net/Modules/S/Sitecore_Cache_Observer.aspx) to download the package from Sitecore Marketplace and install it via Sitecore Installation Wizard.
 
 ## How to use?
 
