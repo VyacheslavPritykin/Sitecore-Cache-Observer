@@ -12,7 +12,7 @@
     <link href="/sitecore/admin/cache/style.css" rel="stylesheet" type="text/css" />
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/scripts/jquery-2.2.3.min.js">\x3C/script>')</script>
+    <script>window.jQuery || document.write('<script src="/scripts/jquery-1.6.4.min.js">\x3C/script>')</script>
 
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.0.js"></script>
     <script>window.ko || document.write('<script src="/scripts/knockout-3.4.0.js">\x3C/script>')</script>
