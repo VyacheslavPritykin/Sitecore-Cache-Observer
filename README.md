@@ -21,7 +21,7 @@ _/sitecore/admin/cache.aspx_
 ### Setup SignalR
 Sitecore Cache Observer uses [SignalR](http://www.asp.net/signalr) for live updates and SignalR needs to be initialized as an OWIN middleware.
 
-If you dont have configured OWIN in you Sitecore instance, then the easiest way to make Sitecore Cache Observer work
+If you don't have configured OWIN in your Sitecore instance, then the easiest way to make Sitecore Cache Observer work
 is to install [Sitecore SignalR](https://github.com/VyacheslavPritykin/Sitecore-SignalR) nuget package:
 
 ```
