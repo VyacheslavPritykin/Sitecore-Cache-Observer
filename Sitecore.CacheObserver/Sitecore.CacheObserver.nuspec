@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Vyacheslav Pritykin</authors>
+    <owners>Vyacheslav Pritykin</owners>
+    <licenseUrl>https://github.com/VyacheslavPritykin/Sitecore-Cache-Observer/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/VyacheslavPritykin/Sitecore-Cache-Observer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>Sitecore SignalR</tags>
+    <language>en-US</language>
+    <summary>Advanced cache monitoring tool for Sitecore that was designed to replace built-in /sitecore/admin/cache.aspx</summary>
+  </metadata>
+  <files>
+    <file src="\App_Config\Include\Sitecore.CacheObserver.config" target="content\App_Config\Include\Sitecore.CacheObserver.config" />
+    <file src="\Scripts\smoothie.js" target="content\Scripts\smoothie.js" />
+    <file src="\sitecore\admin\Cache\CacheObserver.aspx" target="content\sitecore\admin\Cache\CacheObserver.aspx" />
+    <file src="\sitecore\admin\Cache\script.js" target="content\sitecore\admin\Cache\script.js" />
+    <file src="\sitecore\admin\Cache\style.css" target="content\sitecore\admin\Cache\style.css" />
+  </files>
+</package>
