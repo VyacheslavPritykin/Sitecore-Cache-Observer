@@ -174,8 +174,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release nuget pack "$(ProjectDir)\Sitecore.CacheObserver.csproj" -IncludeReferencedProjects -Verbosity detailed -Prop Configuration=Release
-  </PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release nuget pack "$(ProjectDir)\Sitecore.CacheObserver.csproj" -IncludeReferencedProjects -Verbosity detailed -Exclude web.config -Prop Configuration=Release
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
