@@ -10,7 +10,7 @@
     <link href="/sitecore/images/favicon.ico" rel="shortcut icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
     <link href="/sitecore/admin/cache/style.css" rel="stylesheet" type="text/css" />
-    <script src="/scripts/jquery-2.2.2.min.js"></script>
+    <script src="/scripts/jquery-2.2.3.min.js"></script>
     <script src="/scripts/knockout-3.4.0.js"></script>
     <script src="/scripts/smoothie.js"></script>
     <script src="/scripts/jquery.signalR-2.2.0.min.js"></script>
@@ -77,7 +77,7 @@
             <tr data-bind="if: isChartVisible, visible: isPassedNameFilter($parent.filter())">
                 <td></td>
                 <td colspan="6">
-                    <canvas class="chart" data-bind="attr: { id: chartId }" width="670" height="100" />
+                    <canvas class="chart" data-bind="attr: { id: chartId }" width="670" height="100"></canvas>
                 </td>
             </tr>
             <!-- /ko -->
