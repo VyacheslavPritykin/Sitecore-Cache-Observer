@@ -1,15 +1,15 @@
 ﻿(() => {
     "use strict";
 
-    // ReSharper disable InconsistentNaming
     interface IServerCache {
+        // ReSharper disable InconsistentNaming
         Id: string;
         Name: string;
         Count: number;
         Size: number;
         MaxSize: number;
+        // ReSharper restore InconsistentNaming
     }
-    // ReSharper restore InconsistentNaming
 
     class CacheViewModel {
         constructor(public id: string,
