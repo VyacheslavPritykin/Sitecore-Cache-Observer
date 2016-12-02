@@ -17,8 +17,8 @@
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.0.js"></script>
     <script>window.ko || document.write('<script src="/scripts/knockout-3.4.0.js">\x3C/script>')</script>
 
-    <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
-    <script>window.jQuery.connection || document.write('<script src="/scripts/jquery.signalR-2.2.0.min.js">\x3C/script>')</script>
+    <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.1.min.js"></script>
+    <script>window.jQuery.connection || document.write('<script src="/scripts/jquery.signalR-2.2.1.min.js">\x3C/script>')</script>
 
     <script src="/scripts/smoothie.js"></script>
     <script src="<%: Sitecore.Configuration.Settings.GetSetting("SignalR.Path", "/signalr") %>/hubs"></script>
